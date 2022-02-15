@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('users')->group(function () {
+    Route::get('country/{countryCode?}', [UsersController::class, 'usersByCountry']);
+    Route::put('details/{user}/update', [UsersController::class, 'updateUser']);
+    Route::delete('{user}/delete', [UsersController::class, 'deleteUser']);
 });
