@@ -28,4 +28,11 @@ class UsersControllerTest extends TestCase
         $this->assertDeleted($user);
     }
 
+	public function testNotPossibleToDeleteUserAgain()
+	{
+		$this->withoutExceptionHandling();
+		$user     = User::factory()->hasDetail()->create();
+		$response = $this->delete('api/users/1/delete');
+		$response->assertStatus(400);
+	}
 }
